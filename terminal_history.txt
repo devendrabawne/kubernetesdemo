@@ -1,0 +1,63 @@
+    1  cd /opt
+    2  ls -al
+    3  kubeadm init --ignore-preflight-errors=NumCPU
+    4  sudo kubeadm token create --print-join-command
+    5  mkdir -p $HOME/.kube
+    6  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    7  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    8  sysctl net.bridge.bridge-nf-call-iptables=1
+    9  export kubever=$(kubectl version | base64 | tr -d '\n')
+   10  kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+   11  kubectl get nodes
+   12  history
+   13  mkdir kubernetesdemo
+   14  cd kubernetesdemo/
+   15  mkdir redisdemo
+   16  cd redisdemo/
+   17  vi redis.yml
+   18  kubectl create -f redis.yml
+   19  kubectl get pods
+   20  kubectl get pods -o wide
+   21  kubectl describe pods redis
+   22  kubectl exec -it redis /bin/bash
+   23  kubectl delete pod redis
+   24  kubectl get pods      
+   25  cd ..
+   26  kubeadmin token list
+   27  kubeadm token list
+   28  git init
+   29  git status
+   30  git add .
+   31  git commit -am "kubenetes example"
+   32  git remote add origin https://github.com/devendrabawne/kubernetesdemo.git
+   33  git push -u origin master
+   34  kubectl -version
+   35  kubectl version
+   36  mkdir my-first-pod
+   37  cd my-first-pod/
+   38  vi my-first-pod.yml
+   39  kubectl get pods
+   40  kubectl create -f my-first-pod.yml
+   41  kubectl get pods
+   42  kubectl logs my-first-pod -c my-centos --tail=30
+   43  kubectl exec -it  my-first-pod -c my-nginx /bin/bash
+   44  cd ..
+   45  git status
+   46  git add .
+   47  git commit -am "kuber 2 example"
+   48  git push -u origin master
+   49  kubectl logs my-first-pod -c my-centos --tail=30 
+   50  kubectl logs my-first-pod -c my-nginx --tail=30 
+   51  mkdir pod-replica
+   52  cd pod-replica/
+   53  vi nginx-rc.yml
+   54  kubectl create -f nginx-rc.yml
+   55  kubectl get rc
+   56  clear
+   57  kubectl get pods -o wide
+   58  git status
+   59  git add .
+   60  git commit -am "third example"
+   61  git push -u origin master
+   62  cd ..
+   63  history > terminal_history.txt
